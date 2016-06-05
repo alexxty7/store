@@ -1,0 +1,15 @@
+.row
+  .col-md-3
+    %p.lead Shop by category
+    .list-group
+      -@categories.each do |category|
+        = link_to(category.name, category, class: 'list-group-item')
+  .col-md-9
+    %h1.text-center Shop
+    - @books.each do |book|
+      .col-sm-4.col-lg-4.col-md-4
+        .thumbnail
+          = image_tag(book.cover.thumb)
+          .caption
+            %h4= link_to(book.title, book)
+            %h4= number_to_currency(book.price)

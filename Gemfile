@@ -23,7 +23,6 @@ gem 'cancancan', '~> 1.10'
 gem 'kaminari', github: 'amatsuda/kaminari', branch: '0-17-stable'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'figaro'
-gem 'gretel', github: 'craig1410/gretel', branch: 'dep_alias_method_chain'
 gem 'rails-assets-bootstrap-star-rating', source: 'https://rails-assets.org'
 gem 'wicked'
 

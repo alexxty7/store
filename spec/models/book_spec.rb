@@ -9,7 +9,7 @@ RSpec.describe Book do
 
   context 'associations' do
     it { is_expected.to belong_to(:author) }
-    # it { is_expected.to belong_to(:category) }
+    it { is_expected.to belong_to(:category) }
     # it { is_expected.to have_many(:ratings) }
     it { is_expected.to have_many(:order_items) }
   end

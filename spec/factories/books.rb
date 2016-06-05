@@ -5,6 +5,7 @@ FactoryGirl.define do
     price 1.5
     in_stock 10
     author
+    category nil
 
     factory :book_with_order do
       transient do

@@ -2,6 +2,7 @@ class Book < ApplicationRecord
   validates :title, :price, :in_stock, presence: true
 
   belongs_to :author
+  belongs_to :category
   has_many :order_items
 
   mount_uploader :cover, CoverUploader

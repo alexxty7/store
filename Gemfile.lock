@@ -17,14 +17,6 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: git://github.com/craig1410/gretel.git
-  revision: 665bdd436c792ff8ca3a3b0b4450c2a3f4705e08
-  branch: dep_alias_method_chain
-  specs:
-    gretel (3.0.8)
-      rails (>= 3.2.0)
-
-GIT
   remote: git://github.com/mshibuya/remotipart.git
   revision: 3a6acb36d46d6769faba6bd94ed7f831321f6c6a
   ref: 3a6acb3
@@ -372,7 +364,6 @@ DEPENDENCIES
   ffaker
   figaro
   fuubar
-  gretel!
   haml-rails (~> 0.9)
   jbuilder (~> 2.0)
   jquery-rails
