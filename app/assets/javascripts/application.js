@@ -15,3 +15,18 @@
 //= require bootstrap-sprockets
 //= require bootstrap-star-rating
 //= require_tree .
+
+$(document).ready(function(){
+
+    var url = window.location;
+    
+    var element = $('ul.nav a').filter(function() {
+        return this.href == url;
+    }).parent().addClass('active');
+
+    var element2 = $('.list-group a').filter(function() {
+        var url_head = url.href.split('#', 1)[0];
+        return this.href == url_head;
+    }).addClass('active');
+
+});

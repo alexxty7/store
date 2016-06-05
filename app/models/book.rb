@@ -6,6 +6,7 @@ class Book < ApplicationRecord
   has_many :order_items
 
   mount_uploader :cover, CoverUploader
+  paginates_per 9
 
   def self.best_sellers
     joins(:order_items)

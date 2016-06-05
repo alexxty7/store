@@ -2,6 +2,7 @@
   .col-md-9
     %h1 Shop
     = render @books
+    = paginate @books
   .col-md-3
     = render 'categories/category_menu'
 

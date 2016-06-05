@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
+  before_action :find_categories
+
   def index
-    @categories = Category.all
-    @books = Book.all
+    @books = Book.page(params[:page])
   end
 end
