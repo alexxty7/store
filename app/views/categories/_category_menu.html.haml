@@ -1,0 +1,4 @@
+%p.lead Shop by category
+.list-group
+  -@categories.each do |category|
+    = link_to(category.name, category, class: 'list-group-item')
