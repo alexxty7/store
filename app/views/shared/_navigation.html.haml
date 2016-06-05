@@ -1,0 +1,26 @@
+%nav.navbar.navbar-default.navbar-static-top
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to 'BookStore', root_path, class: 'navbar-brand'
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li
+          = link_to 'Home', root_path
+      /   %li
+      /     = link_to 'Shop', books_path
+                     
+      / %ul.nav.navbar-nav.navbar-right
+      /   %li
+      /     = render('shared/cart')
+      /   - if user_signed_in?
+      /     %li= link_to 'Settings', edit_user_path
+      /     %li= link_to 'Orders', account_path
+      /     %li= link_to 'Sign out', destroy_user_session_path, method: 'delete'
+      /   - else
+      /     %li= link_to 'Sign in', new_user_session_path
+      /     %li= link_to 'Sign up', new_user_registration_path

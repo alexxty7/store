@@ -1,0 +1,15 @@
+.table.cart {
+  margin-top: 30px;
+  
+  th {
+    text-transform: uppercase;
+  }
+
+  img {
+    max-height: 50px;
+  }
+
+  input[type='number'] {
+    max-width: 100px;
+  }
+}

@@ -5,3 +5,25 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+# Category.destroy_all
+Author.destroy_all
+Book.destroy_all
+
+author = Author.create(
+  first_name: FFaker::Name.first_name,
+  last_name: FFaker::Name.last_name,
+  biography: FFaker::Lorem.paragraph
+)
+
+50.times do
+  Book.create!(
+    title: FFaker::Product.product_name,
+    description: FFaker::Lorem.paragraph,
+    price: rand(1000) + 1,
+    in_stock: rand(5..10),
+    author: author
+  )
+end
+
+p "Created #{Book.count} books"
+p "Created #{Author.count} authors"

@@ -1,0 +1,16 @@
+.row.carousel-holder
+  .col-md-12
+    #carousel-example-generic.carousel.slide{"data-ride" => "carousel"}
+      .carousel-inner
+        - @best_sellers.each_with_index do |book, index|
+          .item{class: (index.zero? ? 'active' : '')} 
+            = image_tag(book.cover, class: 'image-responsive')
+            %h1
+              = book.title
+              by #{book.author.full_name}
+            %p= book.description
+            %p= number_to_currency(book.price)
+      %a.left.carousel-control{"data-slide" => "prev", :href => "#carousel-example-generic"}
+        %span.glyphicon.glyphicon-chevron-left
+      %a.right.carousel-control{"data-slide" => "next", :href => "#carousel-example-generic"}
+        %span.glyphicon.glyphicon-chevron-right
