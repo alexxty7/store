@@ -10,6 +10,7 @@
     = render 'shared/navigation'
     .container
       = render 'shared/messages'
+      = yield(:breadcrumbs)
       = yield
     .container
       = render 'shared/footer'
