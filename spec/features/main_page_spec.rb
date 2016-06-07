@@ -5,7 +5,7 @@ feature 'Main page' do
   given!(:book2) { create(:book_with_order, title: 'Some book') }
 
   scenario 'user can see best sellers', js: true do
-    visit root_path
+    visit(root_path)
 
     within('.carousel') do
       expect(page).to have_content(book.title)
@@ -16,7 +16,7 @@ feature 'Main page' do
   end
 
   scenario 'user can navigate between carousel items', js: true do
-    visit root_path
+    visit(root_path)
 
     within('.carousel') do
       find('.right.carousel-control').click
