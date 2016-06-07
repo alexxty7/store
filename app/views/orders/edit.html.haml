@@ -1,0 +1,8 @@
+#basket
+  .box
+    %h1 Shopping cart
+    - if @order.empty?
+      .alert.alert-info Your cart is empty
+      = link_to 'Continue shopping', books_path, class: "btn btn-default"
+    - else
+      = render('form')

@@ -12,7 +12,7 @@ RSpec.describe Order do
   end
 
   context 'associations' do
-    # it { is_expected.to belong_to(:customer) }
+    it { is_expected.to belong_to(:user) }
     # it { is_expected.to belong_to(:credit_card) }
     # it { is_expected.to belong_to(:billing_address) }
     # it { is_expected.to belong_to(:shipping_address) }

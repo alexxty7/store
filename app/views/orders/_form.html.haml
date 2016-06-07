@@ -1,0 +1,24 @@
+= form_for(@order) do |f|
+  .table-responsive
+    %table.table.cart
+      %thead
+        %tr
+          %th.text-center{:colspan => "2"} Book
+          %th Price
+          %th qty
+          %th{:colspan => "2"} total
+      %tbody
+        = render partial: "order_item", collection: @order.order_items, locals: { f: f}
+      %tfoot
+        %tr
+          %td{colspan: "4", align: "right"}
+            %b Subtotal:
+          %td= number_to_currency(@order.subtotal)
+  .box-footer
+    .pull-left
+      = link_to 'Empty cart', empty_cart_path, method: :put, class: "btn btn-default"
+      = link_to 'Continue shopping', books_path, class: "btn btn-default"
+        
+    .pull-right
+      = f.submit 'Update', class: "btn btn-success"
+      = f.submit 'Checkout', name: 'checkout', class: "btn btn-primary"

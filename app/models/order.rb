@@ -3,9 +3,12 @@ class Order < ApplicationRecord
 
   validates :state, presence: true
 
+  belongs_to :user
   has_many :order_items, dependent: :destroy
 
   after_update :update_totals
+  
+  delegate :clear, :empty?, to: :order_items
 
   aasm column: :state do
     state :in_progress, initial: true
