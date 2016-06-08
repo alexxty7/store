@@ -4,6 +4,9 @@ class OrderItem < ApplicationRecord
   
   validates :price, :quantity, presence: true
 
+  after_destroy :update_totals
+  delegate :update_totals, to: :order
+
   def subtotal
     quantity * price
   end
