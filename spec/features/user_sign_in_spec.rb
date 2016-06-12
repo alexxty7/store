@@ -2,7 +2,7 @@ require_relative 'features_helper'
 
 feature 'User sign in' do
   context 'with credentials' do
-    given(:user) { create(:user)}
+    given(:user) { create(:user) }
 
     scenario 'Registered user try to sign in' do
       sign_in(user)

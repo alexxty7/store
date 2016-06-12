@@ -8,8 +8,8 @@ RSpec.describe User do
   describe '.from_omniauth' do
     let(:auth) do
       OmniAuth::AuthHash.new(
-        provider: 'facebook', 
-        uid: '123456', 
+        provider: 'facebook',
+        uid: '123456',
         info: { email: 'new@user.com' }
       )
     end
@@ -27,8 +27,8 @@ RSpec.describe User do
       context 'user already exists' do
         let(:auth) do
           OmniAuth::AuthHash.new(
-            provider: 'facebook', 
-            uid: '123456', 
+            provider: 'facebook',
+            uid: '123456',
             info: { email: user.email }
           )
         end
@@ -50,11 +50,10 @@ RSpec.describe User do
       end
 
       context 'user does not exist' do
-
         it 'creates new user' do
           expect { User.from_omniauth(auth) }.to change(User, :count).by(1)
         end
-        
+
         it 'returns new user' do
           expect(User.from_omniauth(auth)).to be_a(User)
         end
@@ -66,7 +65,7 @@ RSpec.describe User do
 
         it 'fills provider and uid' do
           user = User.from_omniauth(auth)
-          
+
           expect(user.provider).to eq(auth.provider)
           expect(user.uid).to eq(auth.uid)
         end

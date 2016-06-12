@@ -45,7 +45,7 @@ RSpec.describe ApplicationController do
       it 'creates new order' do
         expect(order).to be_kind_of(Order)
       end
-      
+
       it 'saves order_id in session' do
         expect(session[:order_id]).to eq(order.id)
       end

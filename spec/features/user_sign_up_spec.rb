@@ -10,10 +10,10 @@ feature 'Sign up' do
       fill_in('Email', with: 'test_user@test.com')
       fill_in('Password', with: '12345678')
       fill_in('Password confirmation', with: '12345678')
-      
+
       click_on('Sign up')
     end
 
     expect(page).to have_content('You have signed up successfully.')
-  end  
+  end
 end

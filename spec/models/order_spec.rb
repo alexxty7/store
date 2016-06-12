@@ -5,28 +5,26 @@ RSpec.describe Order do
   let(:order) { create(:order) }
 
   context 'validations' do
-    # it { is_expected.to validate_presence_of(:total) }
-    # it { is_expected.to validate_presence_of(:completed_at) }
     it { is_expected.to validate_presence_of(:state) }
-    # it { is_expected.to validate_inclusion_of(:state).in_array(Order::STATES) }
   end
 
   context 'associations' do
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:coupon) }
     # it { is_expected.to belong_to(:credit_card) }
     # it { is_expected.to belong_to(:billing_address) }
     # it { is_expected.to belong_to(:shipping_address) }
     it { is_expected.to have_many(:order_items) }
   end
 
-  context '#add' do
-    describe 'book not in the order' do
+  describe '#add' do
+    context 'book not in the order' do
       it 'creates a new order_items' do
         expect { order.add(book) }.to change(order.order_items, :count).by(1)
       end
     end
 
-    describe 'book already added to order' do
+    context 'book already added to order' do
       let!(:order_item) { create(:order_item, book: book, order: order) }
 
       it 'dont create new order_item' do
@@ -41,15 +39,42 @@ RSpec.describe Order do
     end
   end
 
-  context '#calc_subtotal' do
-    it 'returns total price for all order_items' do
-      create_list(:order_item, 3, order: order)
-      order.reload
-      expect(order.send(:calc_subtotal)).to eq(4.5)
+  describe '#set_coupon' do
+    let(:order) { build(:order, coupon_code: 'QWERTY') }
+
+    context 'valid coupon code' do
+      it 'assigns coupon to order' do
+        coupon = create(:coupon, code: 'QWERTY')
+        order.set_coupon
+        expect(order.coupon).to eq(coupon)
+      end
     end
 
-    it 'returns 0 if order has no order_items' do
-      expect(order.send(:calc_subtotal)).to eq(0)
+    context 'invalid coupon code' do
+      before { order.set_coupon }
+
+      it 'not assigns coupon to order' do
+        expect(order.coupon).to be_nil
+      end
+
+      it 'add errors to base' do
+        expect(order.errors[:base][0]).to eq('Invalid coupon code')
+      end
+    end
+  end
+
+  describe '#update_totals' do
+    it 'calculate and updates order subtotal' do
+      create_list(:order_item, 3, price: 10, order: order)
+      order.update_totals
+      expect(order.subtotal).to eq(30)
+    end
+
+    it 'calculate and updates order total' do
+      order = create(:order_with_coupon)
+      create_list(:order_item, 3, price: 10, order: order)
+      order.update_totals
+      expect(order.total).to eq(25)
     end
   end
 end

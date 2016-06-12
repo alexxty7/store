@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :current_order
-  
+
   def find_categories
     @categories = Category.all
   end
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       session[:order_id] = @current_order.id
     elsif current_user && @current_order.user.nil?
       @current_order.user = current_user
-      @current_order.save      
+      @current_order.save
     end
     @current_order
   end

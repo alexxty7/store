@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   resources :checkout, only: [:show, :update]
 
   get '/cart', to: 'orders#edit', as: :cart
-  put '/cart/empty', to: 'orders#empty', as: :empty_cart
+  patch '/cart/empty', to: 'orders#empty', as: :empty_cart
 end

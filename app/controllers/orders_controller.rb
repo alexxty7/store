@@ -1,18 +1,18 @@
 class OrdersController < ApplicationController
+  before_action :set_order
+
   def edit
-    @order = current_order
   end
 
   def add_item
     book = Book.find(params[:book_id])
     quantity = params[:order][:quantity].to_i
-    current_order.add(book, quantity)
+    @order.add(book, quantity)
     redirect_to cart_path
   end
 
   def update
-    @order = current_order
-    if @order.update_attributes(order_params)
+    if @order.update(order_params)
       if params.key?(:checkout)
         redirect_to checkout_index_path
       else
@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
   end
 
   def empty
-    current_order.clear
+    @order.clear
     redirect_to cart_path
   end
 
@@ -32,6 +32,10 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order)
-          .permit(order_items_attributes: [:id, :quantity])
+          .permit(:coupon_code, order_items_attributes: [:id, :quantity])
+  end
+
+  def set_order
+    @order ||= current_order
   end
 end

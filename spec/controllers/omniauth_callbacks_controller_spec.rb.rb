@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe OmniauthCallbacksController do
- let(:user) { create(:user) }
+  let(:user) { create(:user) }
 
   before do
     OmniAuth.config.test_mode = true

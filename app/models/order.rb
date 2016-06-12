@@ -4,12 +4,16 @@ class Order < ApplicationRecord
   validates :state, presence: true
 
   belongs_to :user
+  belongs_to :coupon
+
   has_many :order_items, dependent: :destroy
   accepts_nested_attributes_for :order_items
-
   after_update :update_totals
-  
+
   delegate :clear, :empty?, to: :order_items
+
+  attr_accessor :coupon_code
+  before_validation :set_coupon, if: 'coupon_code.present?'
 
   aasm column: :state do
     state :in_progress, initial: true
@@ -27,11 +31,11 @@ class Order < ApplicationRecord
     end
 
     event :shipped do
-      transitions from: :in_delivery, to: :delivered 
+      transitions from: :in_delivery, to: :delivered
     end
 
     event :cancel do
-      transitions from: [:in_progress, :in_queue], to: :canceled 
+      transitions from: [:in_progress, :in_queue], to: :canceled
     end
   end
 
@@ -48,12 +52,21 @@ class Order < ApplicationRecord
 
   def update_totals
     update_columns(
-      total: calc_total, 
+      total: calc_total,
       subtotal: calc_subtotal
     )
   end
- 
- private
+
+  def set_coupon
+    coupon = Coupon.find_by(code: coupon_code)
+    if coupon && !coupon.expired?
+      self.coupon = coupon
+    else
+      errors.add(:base, 'Invalid coupon code')
+    end
+  end
+
+  private
 
   def calc_subtotal
     order_items.inject(0) { |a, e| a + (e.price * e.quantity) }
@@ -62,8 +75,11 @@ class Order < ApplicationRecord
   # def calc_shipment_total
   #   delivery ? delivery.price : 0
   # end
+  def coupon_discount
+    coupon ? coupon.discount : 0
+  end
 
   def calc_total
-    calc_subtotal
+    calc_subtotal - coupon_discount
   end
 end

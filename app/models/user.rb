@@ -9,7 +9,7 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     user = find_by(provider: auth.provider, uid: auth.uid.to_s)
     return user if user
-    
+
     email = auth.info[:email]
     user = find_by(email: email)
     if user
@@ -19,7 +19,7 @@ class User < ApplicationRecord
     end
     user
   end
-  
+
   def password_required?
     super && provider.blank?
   end
