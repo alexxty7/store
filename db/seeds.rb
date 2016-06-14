@@ -40,12 +40,12 @@
 
 # p "Created #{Book.count} books"
 # p "Created #{Author.count} authors"
-# Coupon.create!(
-#   code: 'QWERTY',
-#   discount: 5,
-#   starts_at: Date.new(2014, 5, 12),
-#   expires_at: Date.new(2018, 5, 12)
-# )
+Coupon.create!(
+  code: 'QWERTY',
+  discount: 5,
+  starts_at: Date.new(2014, 5, 12),
+  expires_at: Date.new(2018, 5, 12)
+)
 Coupon.create!(
   code: 'QWERTY11',
   discount: 5,

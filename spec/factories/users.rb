@@ -5,5 +5,6 @@ FactoryGirl.define do
     password_confirmation '12345678'
     provider nil
     uid nil
+    username 'user111'
   end
 end

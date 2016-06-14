@@ -4,6 +4,7 @@ class Book < ApplicationRecord
   belongs_to :author
   belongs_to :category
   has_many :order_items
+  has_many :reviews
 
   mount_uploader :cover, CoverUploader
   paginates_per 9
