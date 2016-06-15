@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160614093927) do
+ActiveRecord::Schema.define(version: 20160615110241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "address"
+    t.string   "city"
+    t.integer  "country_id"
+    t.string   "phone"
+    t.string   "zipcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_addresses_on_country_id", using: :btree
+  end
 
   create_table "authors", force: :cascade do |t|
     t.string   "first_name"
@@ -44,6 +57,12 @@ ActiveRecord::Schema.define(version: 20160614093927) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "countries", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "coupons", force: :cascade do |t|
     t.string   "code"
     t.date     "expires_at"
@@ -51,6 +70,17 @@ ActiveRecord::Schema.define(version: 20160614093927) do
     t.decimal  "discount",   precision: 8, scale: 2, default: "0.0"
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "number"
+    t.string   "cvv"
+    t.string   "month"
+    t.string   "year"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -66,16 +96,24 @@ ActiveRecord::Schema.define(version: 20160614093927) do
 
   create_table "orders", force: :cascade do |t|
     t.string   "number"
-    t.decimal  "total",          precision: 8, scale: 2, default: "0.0"
-    t.decimal  "subtotal",       precision: 8, scale: 2, default: "0.0"
-    t.decimal  "shipment_total", precision: 8, scale: 2, default: "0.0"
+    t.decimal  "total",               precision: 8, scale: 2, default: "0.0"
+    t.decimal  "subtotal",            precision: 8, scale: 2, default: "0.0"
+    t.decimal  "shipment_total",      precision: 8, scale: 2, default: "0.0"
     t.string   "state"
     t.datetime "completed_at"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.integer  "user_id"
     t.integer  "coupon_id"
+    t.integer  "credit_card_id"
+    t.integer  "billing_address_id"
+    t.integer  "shipping_address_id"
+    t.integer  "shipment_id"
+    t.index ["billing_address_id"], name: "index_orders_on_billing_address_id", using: :btree
     t.index ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
+    t.index ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
+    t.index ["shipment_id"], name: "index_orders_on_shipment_id", using: :btree
+    t.index ["shipping_address_id"], name: "index_orders_on_shipping_address_id", using: :btree
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
@@ -89,6 +127,14 @@ ActiveRecord::Schema.define(version: 20160614093927) do
     t.integer  "user_id"
     t.index ["book_id"], name: "index_reviews_on_book_id", using: :btree
     t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
+  end
+
+  create_table "shipments", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "price",       precision: 8, scale: 2
+    t.string   "description"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -107,10 +153,15 @@ ActiveRecord::Schema.define(version: 20160614093927) do
     t.string   "provider"
     t.string   "uid"
     t.string   "username"
+    t.integer  "billing_address_id"
+    t.integer  "shipping_address_id"
+    t.index ["billing_address_id"], name: "index_users_on_billing_address_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["shipping_address_id"], name: "index_users_on_shipping_address_id", using: :btree
   end
 
+  add_foreign_key "addresses", "countries"
   add_foreign_key "books", "authors"
   add_foreign_key "books", "categories"
   add_foreign_key "order_items", "books"

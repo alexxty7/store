@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User do
   context 'associations' do
     it { is_expected.to have_many(:orders) }
+    it { is_expected.to belong_to(:billing_address) }
+    it { is_expected.to belong_to(:shipping_address) }
   end
 
   describe '.from_omniauth' do

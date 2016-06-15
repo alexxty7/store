@@ -40,16 +40,18 @@
 
 # p "Created #{Book.count} books"
 # p "Created #{Author.count} authors"
-Coupon.create!(
-  code: 'QWERTY',
-  discount: 5,
-  starts_at: Date.new(2014, 5, 12),
-  expires_at: Date.new(2018, 5, 12)
-)
-Coupon.create!(
-  code: 'QWERTY11',
-  discount: 5,
-  starts_at: Date.new(2017, 5, 12),
-  expires_at: Date.new(2018, 5, 12)
-)
-p "Created #{Coupon.count} coupons"
+# Coupon.create!(
+#   code: 'QWERTY',
+#   discount: 5,
+#   starts_at: Date.new(2014, 5, 12),
+#   expires_at: Date.new(2018, 5, 12)
+# )
+# Coupon.create!(
+#   code: 'QWERTY11',
+#   discount: 5,
+#   starts_at: Date.new(2017, 5, 12),
+#   expires_at: Date.new(2018, 5, 12)
+# )
+# p "Created #{Coupon.count} coupons"
+10.times { Country.create(name: FFaker::Address.country) }
+3.times { Shipment.create!(name: FFaker::Product.product_name, price: rand(5..15)) }

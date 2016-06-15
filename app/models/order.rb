@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  include AASM
+  include Checkout
 
   validates :state, presence: true
 
@@ -15,30 +15,6 @@ class Order < ApplicationRecord
   attr_accessor :coupon_code
   before_validation :set_coupon, if: 'coupon_code.present?'
 
-  aasm column: :state do
-    state :in_progress, initial: true
-    state :in_queue
-    state :in_delivery
-    state :delivered
-    state :canceled
-
-    event :place_order do
-      transitions from: :in_progress, to: :in_queue
-    end
-
-    event :shipping do
-      transitions from: :in_queue, to: :in_delivery
-    end
-
-    event :shipped do
-      transitions from: :in_delivery, to: :delivered
-    end
-
-    event :cancel do
-      transitions from: [:in_progress, :in_queue], to: :canceled
-    end
-  end
-
   def add(item, quantity = 1)
     order_item = order_items.find_by(book: item)
     if order_item
@@ -53,7 +29,8 @@ class Order < ApplicationRecord
   def update_totals
     update_columns(
       total: calc_total,
-      subtotal: calc_subtotal
+      subtotal: calc_subtotal,
+      shipment_total: calc_shipment_total
     )
   end
 
@@ -72,14 +49,15 @@ class Order < ApplicationRecord
     order_items.inject(0) { |a, e| a + (e.price * e.quantity) }
   end
 
-  # def calc_shipment_total
-  #   delivery ? delivery.price : 0
-  # end
+  def calc_shipment_total
+    shipment ? shipment.price : 0
+  end
+  
   def coupon_discount
     coupon ? coupon.discount : 0
   end
 
   def calc_total
-    calc_subtotal - coupon_discount
+    calc_subtotal + calc_shipment_total - coupon_discount
   end
 end

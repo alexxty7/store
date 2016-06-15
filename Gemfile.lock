@@ -381,6 +381,7 @@ DEPENDENCIES
   rails-controller-testing
   rails_admin!
   remotipart!
+  responders
   rspec-rails
   rubocop
   sass-rails (~> 5.0)

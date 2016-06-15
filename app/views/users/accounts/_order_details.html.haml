@@ -1,0 +1,13 @@
+.table-responsive
+  %table.table.cart
+    %thead
+      %th Number
+      %th Completed at
+      %th Total
+    %tbody
+      - orders.each do |order|
+        %tr
+          %td R#{order.id} 
+          %td= order.completed_date
+          %td= order.total
+          %td= link_to 'view', order

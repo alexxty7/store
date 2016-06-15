@@ -5,6 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
   has_many :orders
+  belongs_to :billing_address, class_name: 'Address'
+  belongs_to :shipping_address, class_name: 'Address'
+
+  accepts_nested_attributes_for :billing_address
+  accepts_nested_attributes_for :shipping_address
 
   def self.from_omniauth(auth)
     user = find_by(provider: auth.provider, uid: auth.uid.to_s)
@@ -20,15 +25,15 @@ class User < ApplicationRecord
     user
   end
 
-  def password_required?
-    super && provider.blank?
-  end
+  # def password_required?
+  #   super && provider.blank?
+  # end
 
-  def update_with_password(params, *options)
-    if encrypted_password.blank?
-      update_attributes(params, *options)
-    else
-      super
-    end
-  end
+  # def update_with_password(params, *options)
+  #   if encrypted_password.blank?
+  #     update_attributes(params, *options)
+  #   else
+  #     super
+  #   end
+  # end
 end

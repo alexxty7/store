@@ -1,0 +1,25 @@
+.row
+  .col-md-12.checkout-bar
+    = checkout_progress 
+.row
+  .col-md-9
+    = form_for(@order, url: wizard_path, method: :put) do |f|
+      .col-md-6
+        = f.fields_for :billing_address do |bill_form|
+          %h3.page-header Billing address
+          = render('shared/error_messages', target: @order.billing_address)
+          = render('address/form', f: bill_form)
+      .col-md-6
+        = f.fields_for :shipping_address do |ship_form|
+          %h3.page-header Shipping address
+          = render('shared/error_messages', target: @order.shipping_address)
+          = label_tag :order_use_billing, id: 'use_billing'  do
+            = check_box_tag 'order[use_billing]', '1', true
+            Use Billing Address
+          #shipping
+            = render('address/form', f: ship_form)
+      .col-md-12
+        = f.submit 'Save and continue', class: "btn btn-primary"
+
+  .col-md-3
+    = render('summary')

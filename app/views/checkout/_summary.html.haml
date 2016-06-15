@@ -1,0 +1,13 @@
+%h3.page-header Order summary
+%table.table
+  %tbody
+    %tr
+      %td Item total:
+      %td= number_to_currency(@order.subtotal)
+    -if @order.shipment
+      %tr
+        %td Shipping:
+        %td= number_to_currency(@order.shipment_total)  
+    %tr
+      %td Order total:
+      %td= number_to_currency(@order.total)

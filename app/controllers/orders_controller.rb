@@ -1,6 +1,10 @@
 class OrdersController < ApplicationController
   before_action :set_order
 
+  def show
+    @order = Order.find(params[:id])
+  end
+
   def edit
   end
 

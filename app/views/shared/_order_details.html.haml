@@ -9,12 +9,12 @@
 
   .col-md-3
     %h3 Shipments
-    %p= order.delivery.service
+    %p= order.shipment.name
 
   .col-md-3
     %h3 Payment Information
-    %p *** *** *** #{@order.credit_card.number.to_s.last(4)}
-    %p #{@order.credit_card.expiration_month}/#{@order.credit_card.expiration_year}
+    %p *** *** *** #{@order.credit_card.number.last(4)}
+    %p #{@order.credit_card.month}/#{@order.credit_card.year}
 .row
   .table-responsive
     %table.table.cart
@@ -54,4 +54,4 @@
         %tr
           %td{colspan: "4", align: "right"}
             %b Shipping:
-          %td= number_to_currency(order.shipping_cost)
+          %td= number_to_currency(order.shipment_total)

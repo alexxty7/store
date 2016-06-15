@@ -1,0 +1,27 @@
+.form-group
+  = f.label :first_name
+  = f.text_field :firstname, class: 'form-control'
+
+.form-group
+  = f.label :last_name
+  = f.text_field :lastname, class: 'form-control'
+
+.form-group
+  = f.label :address, 'Street Address'
+  = f.text_field :address, class: 'form-control'
+
+.form-group
+  = f.label :city
+  = f.text_field :city, class: 'form-control'
+
+.form-group
+  = f.label :country
+  = f.collection_select :country_id, Country.all, :id, :name, {}, {class: 'form-control'}
+
+.form-group
+  = f.label :zipcode
+  = f.text_field :zipcode, class: 'form-control'
+
+.form-group
+  = f.label :phone
+  = f.text_field :phone, class: 'form-control'
