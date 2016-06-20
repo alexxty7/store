@@ -15,13 +15,20 @@ class Users::AccountsController < ApplicationController
   end
 
   def update
-    if params[:user].key?(:password)
-      @user.update_with_password(user_account_params)
-      sign_in @user, bypass: true
+    if @user.update(user_account_params)
+      redirect_to edit_account_path
     else
-      @user.update_attributes(user_account_params)
+      render :edit
     end
-    respond_with @user, location: -> { edit_account_path }
+  end
+
+  def update_password
+    if @user.update_with_password(user_account_params)
+      sign_in @user, bypass: true
+      redirect_to edit_account_path
+    else
+      render :edit
+    end
   end
 
   private

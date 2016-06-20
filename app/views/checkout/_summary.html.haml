@@ -3,11 +3,15 @@
   %tbody
     %tr
       %td Item total:
-      %td= number_to_currency(@order.subtotal)
-    -if @order.shipment
+      %td= number_to_currency(current_order.subtotal)
+    - if current_order.shipment
       %tr
         %td Shipping:
-        %td= number_to_currency(@order.shipment_total)  
+        %td= number_to_currency(current_order.shipment_total)
+    - if current_order.coupon
+      %tr
+        %td Discount:
+        %td= number_to_currency(current_order.coupon.discount)
     %tr
       %td Order total:
-      %td= number_to_currency(@order.total)
+      %td= number_to_currency(current_order.total)

@@ -1,9 +1,7 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook]
+         :omniauthable, omniauth_providers: [:facebook]
   has_many :orders
   belongs_to :billing_address, class_name: 'Address'
   belongs_to :shipping_address, class_name: 'Address'
@@ -25,9 +23,9 @@ class User < ApplicationRecord
     user
   end
 
-  # def password_required?
-  #   super && provider.blank?
-  # end
+  def password_required?
+    super && provider.blank?
+  end
 
   # def update_with_password(params, *options)
   #   if encrypted_password.blank?

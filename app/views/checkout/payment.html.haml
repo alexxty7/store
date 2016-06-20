@@ -4,8 +4,8 @@
 .row
   .col-md-9
     .col-md-6
-      = form_for(@order, url: wizard_path, method: :put) do |f|
-        = render('shared/error_messages', target: @order)
+      = form_for(@checkout_form, url: wizard_path, method: :put) do |f|
+        = render('shared/error_messages', target: @checkout_form.credit_card)
         = f.fields_for :credit_card do |pay_form|
           %h3.page-header Credit Card
           .form-group

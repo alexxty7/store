@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   end
 
   scope module: 'users' do
-    resource :account
+    resource :account do
+      patch 'update_password'
+    end
   end
 
   resources :order_items, only: :destroy

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var order_use_billing_input = $('input#order_use_billing');
+  var order_use_billing_input = $('input#checkout_form_use_billing');
 
   var order_use_billing = function () {
     if (!order_use_billing_input.is(':checked')) {

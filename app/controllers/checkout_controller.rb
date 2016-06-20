@@ -1,47 +1,48 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  before_action :set_order
   before_action :check_order
+  before_action :empty_cart_on_confirm, only: :show
 
   steps :address, :delivery, :payment, :confirm, :complete
 
   def show
-    if step == :complete
-      session[:order_id] = nil
-    end
-    @order.setup_for_step(step)
+    @checkout_form = CheckoutForm.new(checkout_form_params)
     render_wizard
   end
 
   def update
-    @order.update_attributes(checkout_params)
-    render_wizard(@order)
+    @checkout_form = CheckoutForm.new(checkout_form_params)
+    render_wizard(@checkout_form)
   end
 
   private
 
-  def set_order
-    @order = current_order
+  def empty_cart_on_confirm
+    return unless step == :complete
+    session[:order_id] = nil
   end
 
   def check_order
-    redirect_to cart_path if @order.empty?
+    redirect_to cart_path if current_order.empty?
   end
 
-  def checkout_params
+  def checkout_form_params
     params
-      .require(:order)
+      .fetch(:checkout_form, {})
       .permit(
-        :use_billing, 
+        :use_billing,
         :shipment_id,
         billing_address_attributes: address_attributes,
         shipping_address_attributes: address_attributes,
-        credit_card_attributes: [:number, :month, :year, :cvv]
+        credit_card_attributes: [:number, :month, :year, :cvv])
+      .merge(
+        order: current_order,
+        step: step
       )
   end
 
   def address_attributes
-    %i(firstname lastname address zipcode city phone country_id)
+    %i(id firstname lastname address zipcode city phone country_id)
   end
 end

@@ -10,7 +10,7 @@
   .col-md-6
     = form_for(@user, url: { action: :update }) do |f|
       %h3.page-header Shipping address
-      = render('shared/error_messages', target: @user.billing_address)
+      = render('shared/error_messages', target: @user.shipping_address)
       = f.fields_for :shipping_address do |bill_form|
         = render('address/form', f: bill_form)
       = f.submit 'Save', class: "btn btn-primary"
@@ -25,7 +25,7 @@
       = f.submit 'Save', class: "btn btn-primary"
 
   .col-md-6
-    = form_for(@user, url: { action: :update }) do |f|
+    = form_for(@user, url: { action: :update_password }) do |f|
       %h3.page-header Password
       = render('shared/error_messages', target: @user)
       .form-group

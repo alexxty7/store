@@ -13,8 +13,8 @@
 
   .col-md-3
     %h3 Payment Information
-    %p *** *** *** #{@order.credit_card.number.last(4)}
-    %p #{@order.credit_card.month}/#{@order.credit_card.year}
+    %p *** *** *** #{order.credit_card.number.last(4)}
+    %p #{order.credit_card.month}/#{order.credit_card.year}
 .row
   .table-responsive
     %table.table.cart
@@ -49,6 +49,12 @@
           %td{colspan: "4", align: "right"}
             %b Subtotal:
           %td= number_to_currency(order.subtotal)
+
+      %tfoot
+        %tr
+          %td{colspan: "4", align: "right"}
+            %b Discount:
+          %td= number_to_currency(order.coupon.discount)
 
       %tfoot
         %tr
