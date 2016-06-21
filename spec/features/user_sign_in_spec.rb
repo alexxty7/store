@@ -55,5 +55,19 @@ feature 'User sign in' do
 
       expect(page).to have_content('Could not authenticate you from Facebook because "Invalid credentials"')
     end
+
+    scenario 'user can sign in if facebook do not return email' do
+      mock_auth_hash(email: nil)
+
+      click_on('Sign in')
+      click_on('Sign in with Facebook')
+
+      within('#new_user') do
+        fill_in 'Email', with: 'test_user@test.com'
+        click_on 'Sign up'
+      end
+
+      expect(page).to have_content('You have signed up successfully')
+    end
   end
 end

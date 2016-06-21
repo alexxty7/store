@@ -25,11 +25,11 @@ class CheckoutForm
   end
 
   def billing_address
-    order.billing_address ||= Address.new
+    order.billing_address ||= order.user.try(:billing_address) || Address.new
   end
 
   def shipping_address
-    order.shipping_address ||= Address.new
+    order.shipping_address ||= order.user.try(:shipping_address) || Address.new
   end
 
   def credit_card

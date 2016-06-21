@@ -29,10 +29,12 @@ gem 'responders'
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'poltergeist'
+  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+    gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
+  end
 end
 
 group :development do
@@ -48,6 +50,6 @@ group :test do
   gem 'capybara'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
-  gem 'fuubar'
   gem 'rails-controller-testing'
+  gem 'simplecov', :require => false
 end

@@ -49,12 +49,12 @@
           %td{colspan: "4", align: "right"}
             %b Subtotal:
           %td= number_to_currency(order.subtotal)
-
-      %tfoot
-        %tr
-          %td{colspan: "4", align: "right"}
-            %b Discount:
-          %td= number_to_currency(order.coupon.discount)
+      - if order.coupon
+        %tfoot
+          %tr
+            %td{colspan: "4", align: "right"}
+              %b Discount:
+            %td= number_to_currency(order.coupon.discount)
 
       %tfoot
         %tr

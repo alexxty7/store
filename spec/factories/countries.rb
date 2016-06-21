@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :country do
-    name "MyString"
+    name FFaker::Address.country
   end
 end

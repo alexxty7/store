@@ -3,5 +3,6 @@ FactoryGirl.define do
     price 1.5
     quantity 1
     book
+    order
   end
 end

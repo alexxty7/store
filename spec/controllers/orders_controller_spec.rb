@@ -3,6 +3,25 @@ require 'rails_helper'
 RSpec.describe OrdersController do
   let(:order) { build_stubbed(:order) }
 
+  describe 'GET #show' do
+    before do
+      allow(Order).to receive(:find).and_return(order)
+      get :show, params: { id: order.id }
+    end
+ 
+    it "receives find and return post" do
+      expect(Order).to have_received(:find).with(order.id.to_s)
+    end
+ 
+    it "assigns @post" do
+      expect(assigns(:order)).not_to be_nil
+    end
+ 
+    it "renders :show template" do
+      expect(response).to render_template(:show)
+    end
+  end
+
   describe 'GET #edit' do
     before do
       allow(controller).to receive_messages(current_order: order)
@@ -60,10 +79,10 @@ RSpec.describe OrdersController do
         expect(response).to redirect_to(cart_path)
       end
 
-      # it 'redirects to checkout_index_path if params has key :checkout' do
-      #   put :update, params: { id: order.id, order: order_params, checkout: true }
-      #   expect(response).to redirect_to(cart_path)
-      # end
+      it 'redirects to checkout_index_path if params has key :checkout' do
+        put :update, params: { id: order.id, order: order_params, checkout: true }
+        expect(response).to redirect_to(checkout_index_path)
+      end
     end
 
     context 'with invalid attributes' do

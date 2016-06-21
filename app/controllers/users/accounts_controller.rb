@@ -10,12 +10,11 @@ class Users::AccountsController < ApplicationController
   end
 
   def edit
-    @user.billing_address ||= Address.new
-    @user.shipping_address ||= Address.new
   end
 
   def update
     if @user.update(user_account_params)
+      flash[:notice] = 'Account was successfully updated.'
       redirect_to edit_account_path
     else
       render :edit
@@ -25,6 +24,7 @@ class Users::AccountsController < ApplicationController
   def update_password
     if @user.update_with_password(user_account_params)
       sign_in @user, bypass: true
+      flash[:notice] = 'Password was successfully updated.'
       redirect_to edit_account_path
     else
       render :edit

@@ -2,7 +2,7 @@ class CheckoutController < ApplicationController
   include Wicked::Wizard
 
   before_action :check_order
-  before_action :empty_cart_on_confirm, only: :show
+  before_action :place_order_on_confirm, only: :show
 
   steps :address, :delivery, :payment, :confirm, :complete
 
@@ -18,8 +18,9 @@ class CheckoutController < ApplicationController
 
   private
 
-  def empty_cart_on_confirm
+  def place_order_on_confirm
     return unless step == :complete
+    current_order.place_order!
     session[:order_id] = nil
   end
 

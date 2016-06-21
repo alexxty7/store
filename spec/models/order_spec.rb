@@ -18,6 +18,18 @@ RSpec.describe Order do
     it { is_expected.to have_many(:order_items) }
   end
 
+  describe '#set_completed_time' do
+    it 'updates completed_at time' do
+      order.set_completed_time
+      expect(order.completed_at).not_to be_nil
+    end
+
+    it 'calls after change order state to in_queue' do
+      expect(order).to receive(:set_completed_time)
+      order.place_order
+    end
+  end
+
   describe '#add' do
     context 'book not in the order' do
       it 'creates a new order_items' do
@@ -48,6 +60,17 @@ RSpec.describe Order do
         coupon = create(:coupon, code: 'QWERTY')
         order.set_coupon
         expect(order.coupon).to eq(coupon)
+      end
+
+      it 'calls before validations if coupon_code present' do
+        expect(order).to receive(:set_coupon)
+        order.valid?
+      end
+
+      it 'doens not calls before validations if coupon_code absent' do
+        order = build(:order)
+        expect(order).to_not receive(:set_coupon)
+        order.valid?
       end
     end
 

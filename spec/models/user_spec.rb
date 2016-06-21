@@ -7,6 +7,30 @@ RSpec.describe User do
     it { is_expected.to belong_to(:shipping_address) }
   end
 
+  describe '#billing_address' do
+    it 'returns new address if user.billing_address is nil' do
+      expect(subject.billing_address).to be_a(Address)
+    end
+
+    it 'returns user.billing_address if user has one' do
+      address = create(:address)
+      user = create(:user, billing_address: address)
+      expect(user.billing_address).to eq(address)
+    end
+  end
+
+  describe '#shipping_address' do
+    it 'returns new address if user.shipping_address is nil' do
+      expect(subject.shipping_address).to be_a(Address)
+    end
+
+    it 'returns user.shipping_address if user has one' do
+      address = create(:address)
+      user = create(:user, shipping_address: address)
+      expect(user.shipping_address).to eq(address)
+    end
+  end
+
   describe '.from_omniauth' do
     let(:auth) do
       OmniAuth::AuthHash.new(
@@ -26,32 +50,7 @@ RSpec.describe User do
     context 'user has not provider and uid' do
       let!(:user) { create(:user) }
 
-      context 'user already exists' do
-        let(:auth) do
-          OmniAuth::AuthHash.new(
-            provider: 'facebook',
-            uid: '123456',
-            info: { email: user.email }
-          )
-        end
-
-        it 'does not create new user' do
-          expect { User.from_omniauth(auth) }.to_not change(User, :count)
-        end
-
-        it 'add provider and uid to user' do
-          user = User.from_omniauth(auth)
-
-          expect(user.provider).to eq(auth.provider)
-          expect(user.uid).to eq(auth.uid)
-        end
-
-        it 'returns the user' do
-          expect(User.from_omniauth(auth)).to eq(user)
-        end
-      end
-
-      context 'user does not exist' do
+        context 'user does not exist' do
         it 'creates new user' do
           expect { User.from_omniauth(auth) }.to change(User, :count).by(1)
         end
@@ -72,6 +71,24 @@ RSpec.describe User do
           expect(user.uid).to eq(auth.uid)
         end
       end
+    end
+  end
+
+  describe '.new_with_session' do
+    it 'assigns data from session' do
+      session = {
+        'devise.facebook_data' => {
+          'provider' => 'facebook',
+          'uid' => '1235456',
+          'info' => { 'name' => 'alex' }
+        }
+      }
+      user = User.new_with_session({}, session)
+
+      expect(user).to be_a(User)
+      expect(user.provider).to eq('facebook')
+      expect(user.uid).to eq('1235456') 
+      expect(user.username).to eq('alex')       
     end
   end
 end

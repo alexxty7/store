@@ -6,5 +6,7 @@ FactoryGirl.define do
     provider nil
     uid nil
     username 'user111'
+    billing_address nil
+    shipping_address nil
   end
 end

@@ -9,29 +9,40 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :billing_address
   accepts_nested_attributes_for :shipping_address
 
-  def self.from_omniauth(auth)
-    user = find_by(provider: auth.provider, uid: auth.uid.to_s)
-    return user if user
+  def billing_address
+    super || Address.new
+  end
 
-    email = auth.info[:email]
-    user = find_by(email: email)
-    if user
-      user.update_attributes(provider: auth.provider, uid: auth.uid.to_s)
-    else
-      user = create(email: email, provider: auth.provider, uid: auth.uid.to_s)
+  def shipping_address
+    super || Address.new
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.username = auth.info.name
     end
-    user
   end
 
   def password_required?
     super && provider.blank?
   end
 
-  # def update_with_password(params, *options)
-  #   if encrypted_password.blank?
-  #     update_attributes(params, *options)
-  #   else
-  #     super
-  #   end
-  # end
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"]
+        user.provider = data['provider']
+        user.uid = data['uid']
+        user.username = data['info']['name']
+      end
+    end
+  end
 end
