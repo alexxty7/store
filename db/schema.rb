@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615110241) do
+ActiveRecord::Schema.define(version: 20160622080505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,14 +39,15 @@ ActiveRecord::Schema.define(version: 20160615110241) do
 
   create_table "books", force: :cascade do |t|
     t.string   "title"
-    t.decimal  "price",       precision: 8, scale: 2
+    t.decimal  "price",            precision: 8, scale: 2
     t.integer  "in_stock"
     t.string   "cover"
     t.text     "description"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "author_id"
     t.integer  "category_id"
+    t.text     "full_description"
     t.index ["author_id"], name: "index_books_on_author_id", using: :btree
     t.index ["category_id"], name: "index_books_on_category_id", using: :btree
   end
@@ -138,23 +139,24 @@ ActiveRecord::Schema.define(version: 20160615110241) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "provider"
     t.string   "uid"
     t.string   "username"
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
+    t.boolean  "admin",                  default: false, null: false
     t.index ["billing_address_id"], name: "index_users_on_billing_address_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

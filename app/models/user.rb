@@ -45,4 +45,12 @@ class User < ApplicationRecord
       end
     end
   end
+
+  rails_admin do
+    show do
+      include_all_fields
+      exclude_fields :billing_address, :shipping_address
+    end
+    exclude_fields :reset_password_sent_at, :remember_created_at
+  end
 end

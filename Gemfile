@@ -19,13 +19,14 @@ gem 'omniauth-facebook'
 gem 'rails_admin', github: 'sferik/rails_admin', branch: 'master'
 gem 'rack-pjax', github: 'afcapel/rack-pjax', branch: 'master'
 gem 'remotipart', github: 'mshibuya/remotipart', ref: '3a6acb3'
-gem 'cancancan', '~> 1.10'
+gem 'cancancan', '~> 1.15'
 gem 'kaminari', github: 'amatsuda/kaminari', branch: '0-17-stable'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'figaro'
 gem 'rails-assets-bootstrap-star-rating', source: 'https://rails-assets.org'
 gem 'wicked'
 gem 'responders'
+gem 'ckeditor'
 
 group :development, :test do
   gem 'byebug', platform: :mri

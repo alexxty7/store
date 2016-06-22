@@ -4,6 +4,9 @@ RSpec.describe Order do
   let(:book) { create(:book) }
   let(:order) { create(:order) }
 
+  it { is_expected.to delegate_method(:clear).to(:order_items) }
+  it { is_expected.to delegate_method(:empty?).to(:order_items) }
+
   context 'validations' do
     it { is_expected.to validate_presence_of(:state) }
   end
@@ -99,6 +102,13 @@ RSpec.describe Order do
       create_list(:order_item, 3, price: 10, order: order)
       order.update_totals
       expect(order.total).to eq(25)
+    end
+  end
+
+  describe '#set_number' do
+    it 'sets order number' do
+      order = create(:order)
+      expect(order.number).not_to be_nil
     end
   end
 end

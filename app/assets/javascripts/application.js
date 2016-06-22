@@ -14,10 +14,10 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-star-rating
+//= require ckeditor/init
 //= require_tree .
 
 $(document).ready(function(){
-
     var url = window.location;
     
     var element = $('ul.nav a').filter(function() {

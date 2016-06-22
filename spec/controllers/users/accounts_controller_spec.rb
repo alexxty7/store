@@ -38,7 +38,7 @@ RSpec.describe Users::AccountsController do
 
   describe 'PATCH #update' do
     let(:user) { create(:user) }
-    let(:user_params) { attributes_for(:user) }
+    let(:user_params) { attributes_for(:user_account) }
 
     before do
       allow(controller).to receive(:current_user).and_return(user)
@@ -81,7 +81,7 @@ RSpec.describe Users::AccountsController do
 
   describe 'PATCH #update_password' do
     let(:user) { create(:user) }
-    let(:user_params) { attributes_for(:user) }
+    let(:user_params) { attributes_for(:user_account) }
 
     before do
       allow(controller).to receive(:current_user).and_return(user)

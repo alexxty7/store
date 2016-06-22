@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe OrderItem do
+  it { is_expected.to delegate_method(:update_totals).to(:order) }
+
   context 'validations' do
     it { is_expected.to validate_presence_of(:price) }
     it { is_expected.to validate_presence_of(:quantity) }

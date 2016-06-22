@@ -15,12 +15,13 @@ class Order < ApplicationRecord
 
   before_validation :set_coupon, if: 'coupon_code.present?'
   after_update :update_totals
+  after_create :set_number
 
   delegate :clear, :empty?, to: :order_items
 
   attr_accessor :coupon_code
 
-  aasm column: :state do
+  aasm column: :state, whiny_transitions: false do
     state :in_progress, initial: true
     state :in_queue, after_enter: :set_completed_time
     state :in_delivery
@@ -74,6 +75,10 @@ class Order < ApplicationRecord
 
   def set_completed_time
     touch(:completed_at)
+  end
+
+  def set_number
+    self.number = 'R-%.6d' % id
   end
 
   private
