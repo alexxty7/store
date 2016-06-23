@@ -7,12 +7,12 @@
       .col-md-6
         = f.fields_for :billing_address do |bill_form|
           %h3.page-header Billing address
-          = render('shared/error_messages', target: @checkout_form.billing_address)
+          = error_messages_for(@checkout_form.billing_address)
           = render('address/form', f: bill_form)
       .col-md-6
         = f.fields_for :shipping_address do |ship_form|
           %h3.page-header Shipping address
-          = render('shared/error_messages', target: @checkout_form.shipping_address)
+          = error_messages_for(@checkout_form.shipping_address)
           = label_tag :checkout_form_use_billing, id: 'use_billing'  do
             = check_box_tag 'checkout_form[use_billing]', '1', true
             Use Billing Address

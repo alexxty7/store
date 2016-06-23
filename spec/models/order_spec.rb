@@ -98,10 +98,16 @@ RSpec.describe Order do
     end
 
     it 'calculate and updates order total' do
-      order = create(:order_with_coupon)
       create_list(:order_item, 3, price: 10, order: order)
       order.update_totals
-      expect(order.total).to eq(25)
+      expect(order.total).to eq(30)
+    end
+
+    it 'calculate and updates order shipment_total' do
+      shipment = create(:shipment, price: 5)
+      order = create(:order, shipment: shipment)
+      order.update_totals
+      expect(order.shipment_total).to eq(5)
     end
   end
 

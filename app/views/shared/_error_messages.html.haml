@@ -1,7 +1,0 @@
-- if target.errors.any?
-  .error
-    - target.errors.full_messages.each do |msg|
-      .alert.alert-info.alert-dismissible{role: "alert"}
-        %button.close{type: 'button', data: { dismiss: 'alert' }, 'aria-label': 'Close'}
-          %span{'aria-hidden': 'true'} &times;
-        %strong= msg

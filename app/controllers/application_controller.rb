@@ -26,8 +26,7 @@ class ApplicationController < ActionController::Base
       @current_order = Order.create(user: current_user)
       session[:order_id] = @current_order.id
     elsif current_user && @current_order.user.nil?
-      @current_order.user = current_user
-      @current_order.save
+      @current_order.update(user: current_user)
     end
     @current_order
   end
@@ -36,7 +35,7 @@ class ApplicationController < ActionController::Base
     if session[:order_id]
       Order.find_by(id: session[:order_id])
     elsif current_user
-      current_user.orders.in_progress.first
+      current_user.orders.in_progress
     end
   end
 end

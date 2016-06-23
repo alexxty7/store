@@ -1,5 +1,5 @@
 = form_for([@book, @review]) do |f|
-  = render('shared/error_messages', target: @review)
+  = error_messages_for(@review)
 
   .form-group
     = f.label :rating

@@ -3,7 +3,7 @@ class Users::AccountsController < ApplicationController
   before_action :set_user
 
   def show
-    @orders_in_progress = @user.orders.in_progress.first
+    @orders_in_progress = @user.orders.in_progress
     @orders_in_queue = @user.orders.in_queue
     @orders_in_delivery = @user.orders.in_delivery
     @orders_delivered = @user.orders.delivered

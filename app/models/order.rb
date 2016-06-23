@@ -45,6 +45,10 @@ class Order < ApplicationRecord
     end
   end
 
+  def self.in_progress
+    find_by(state: 'in_progress')
+  end
+
   def add(item, quantity = 1)
     order_item = order_items.find_by(book: item)
     if order_item
@@ -58,9 +62,9 @@ class Order < ApplicationRecord
 
   def update_totals
     update_columns(
-      total: calc_total,
-      subtotal: calc_subtotal,
-      shipment_total: calc_shipment_total
+      total: order_calculator.total,
+      subtotal: order_calculator.subtotal,
+      shipment_total: order_calculator.shipment_total
     )
   end
 
@@ -81,21 +85,7 @@ class Order < ApplicationRecord
     self.number = 'R-%.6d' % id
   end
 
-  private
-
-  def calc_subtotal
-    order_items.inject(0) { |a, e| a + (e.price * e.quantity) }
-  end
-
-  def calc_shipment_total
-    shipment ? shipment.price : 0
-  end
-
-  def coupon_discount
-    coupon ? coupon.discount : 0
-  end
-
-  def calc_total
-    calc_subtotal + calc_shipment_total - coupon_discount
+  def order_calculator
+    @calculator ||= OrderCalculator.new(self)
   end
 end

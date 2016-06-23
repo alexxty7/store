@@ -2,7 +2,7 @@
   .col-md-6
     = form_for(@user, url: { action: :update }) do |f|
       %h3.page-header Billing address
-      = render('shared/error_messages', target: @user.billing_address)
+      = error_messages_for(@user.billing_address)
       = f.fields_for :billing_address do |bill_form|
         = render('address/form', f: bill_form)
       = f.submit 'Save', class: "btn btn-primary"
@@ -10,15 +10,15 @@
   .col-md-6
     = form_for(@user, url: { action: :update }) do |f|
       %h3.page-header Shipping address
-      = render('shared/error_messages', target: @user.shipping_address)
+      = error_messages_for(@user.shipping_address)
       = f.fields_for :shipping_address do |bill_form|
         = render('address/form', f: bill_form)
       = f.submit 'Save', class: "btn btn-primary"
-
+.row
   .col-md-6
     = form_for(@user, url: { action: :update }) do |f|
       %h3.page-header Email
-      = render('shared/error_messages', target: @user)
+      = error_messages_for(@user, 'email')
       .form-group
         = f.label :email
         = f.email_field :email, class: 'form-control'
@@ -27,7 +27,7 @@
   .col-md-6
     = form_for(@user, url: { action: :update_password }) do |f|
       %h3.page-header Password
-      = render('shared/error_messages', target: @user)
+      = error_messages_for(@user, 'password')
       .form-group
         = f.label :password
         = f.password_field :password, :autocomplete => 'off', class: 'form-control'
@@ -38,7 +38,7 @@
         = f.label :current_password
         = f.password_field :current_password, class: 'form-control'
       = f.submit 'Save', class: "btn btn-primary"
-      
+.row     
   .col-md-6
     %h3.page-header Remove account
     = button_to("Cancel my account", registration_path(@user), 

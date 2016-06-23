@@ -28,13 +28,13 @@ class User < ApplicationRecord
     super && provider.blank?
   end
 
-  def update_with_password(params, *options)
-    if encrypted_password.blank?
-      update_attributes(params, *options)
-    else
-      super
-    end
-  end
+  # def update_with_password(params, *options)
+  #   if encrypted_password.blank?
+  #     update_attributes(params, *options)
+  #   else
+  #     super
+  #   end
+  # end
 
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -44,13 +44,5 @@ class User < ApplicationRecord
         user.username = data['info']['name']
       end
     end
-  end
-
-  rails_admin do
-    show do
-      include_all_fields
-      exclude_fields :billing_address, :shipping_address
-    end
-    exclude_fields :reset_password_sent_at, :remember_created_at
   end
 end
