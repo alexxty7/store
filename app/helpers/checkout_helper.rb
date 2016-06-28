@@ -1,7 +1,7 @@
 module CheckoutHelper
   def checkout_progress
     states = wizard_steps
-    items = states.each_with_index.map do |state, i|
+    items = states.map do |state|
       text = state.to_s.titleize
 
       css_classes = []

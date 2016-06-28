@@ -1,4 +1,4 @@
-class OrderCalculator  
+class OrderCalculator
   def initialize(order)
     @order = order
   end

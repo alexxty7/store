@@ -85,6 +85,8 @@ class Order < ApplicationRecord
     self.number = 'R-%.6d' % id
   end
 
+  private
+
   def order_calculator
     @calculator ||= OrderCalculator.new(self)
   end

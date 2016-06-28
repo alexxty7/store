@@ -4,22 +4,14 @@ RSpec.describe Users::AccountsController do
   sign_in_user
 
   describe 'GET #show' do
-    before do
-      create(:order, user: @user)
+    it 'assings @history' do
+      allow(OrderHistory).to receive(:new).and_return(double('history'))
       get :show
+      expect(assigns(:history)).not_to be_nil
     end
 
-    [:orders_in_progress, 
-      :orders_in_queue, 
-      :orders_in_delivery, 
-      :orders_delivered
-    ].each do |variable|
-      it "assigns @#{variable.to_s}" do
-        expect(assigns(variable)).not_to be_nil
-      end
-    end
-
-    it "renders :show template" do
+    it 'renders :show template' do
+      get :show
       expect(response).to render_template(:show)
     end
   end
@@ -47,20 +39,20 @@ RSpec.describe Users::AccountsController do
     end
 
     context 'with valid attributes' do
-      it "assigns @user" do
+      it 'assigns @user' do
         expect(assigns(:user)).not_to be_nil
       end
- 
-      it "receives update for @user" do
+
+      it 'receives update for @user' do
         expect(user).to have_received(:update)
       end
- 
-      it "sends success notice" do
+
+      it 'sends success notice' do
         put :update, params: { user: user_params }
         expect(flash[:notice]).to eq 'Account was successfully updated.'
       end
- 
-      it "redirects to settings page" do
+
+      it 'redirects to settings page' do
         put :update, params: { user: user_params }
         expect(response).to redirect_to edit_account_path
       end
@@ -73,7 +65,7 @@ RSpec.describe Users::AccountsController do
         patch :update, params: { user: user_params }
       end
 
-      it "renders :edit template" do
+      it 'renders :edit template' do
         expect(response).to render_template :edit
       end
     end
@@ -90,19 +82,19 @@ RSpec.describe Users::AccountsController do
     end
 
     context 'with valid attributes' do
-      it "assigns @user" do
+      it 'assigns @user' do
         expect(assigns(:user)).not_to be_nil
       end
- 
-      it "receives update for @user" do
+
+      it 'receives update for @user' do
         expect(user).to have_received(:update_with_password)
       end
- 
-      it "sends success notice" do
+
+      it 'sends success notice' do
         expect(flash[:notice]).to eq 'Password was successfully updated.'
       end
- 
-      it "redirects to settings page" do
+
+      it 'redirects to settings page' do
         expect(response).to redirect_to edit_account_path
       end
     end
@@ -111,10 +103,10 @@ RSpec.describe Users::AccountsController do
       before do
         allow(controller).to receive(:current_user).and_return(user)
         allow(user).to receive(:update_with_password).and_return(false)
-        patch :update_password, params: { user: user_params }      
+        patch :update_password, params: { user: user_params }
       end
 
-      it "renders :edit template" do
+      it 'renders :edit template' do
         expect(response).to render_template :edit
       end
     end

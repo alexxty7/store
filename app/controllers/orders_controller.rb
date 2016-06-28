@@ -40,6 +40,6 @@ class OrdersController < ApplicationController
   end
 
   def set_order
-    @order ||= current_order
+    @order = current_order
   end
 end

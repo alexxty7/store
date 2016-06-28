@@ -4,22 +4,22 @@
 - if @orders_in_progress.empty?
   %p There are not orders in progress.
 - else
-  = render('current_order', order: @orders_in_progress)
+  = render('current_order', order: @history.orders_in_progress)
 
 %h3.page-header Waiting for processing
 - if @orders_in_progress.empty?
   %p There are not orders for processing.
 - else
-  = render('order_details', orders: @orders_in_queue)
+  = render('order_details', orders: @history.orders_in_queue)
 
 %h3.page-header In Delivery
 - if @orders_in_progress.empty?
   %p There are not orders for processing.
 - else
-  = render('order_details', orders: @orders_in_delivery)
+  = render('order_details', orders: @history.orders_in_delivery)
 
 %h3.page-header Delivered
 - if @orders_in_progress.empty?
   %p There are not orders for processing.
 - else
-  = render('order_details', orders: @orders_delivered)
+  = render('order_details', orders: @history.orders_delivered)

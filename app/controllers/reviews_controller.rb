@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :set_book
   before_action :authenticate_user!
-  
+
   def new
     @review = @book.reviews.new
   end

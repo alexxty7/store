@@ -26,7 +26,8 @@ class ApplicationController < ActionController::Base
       @current_order = Order.create(user: current_user)
       session[:order_id] = @current_order.id
     elsif current_user && @current_order.user.nil?
-      @current_order.update(user: current_user)
+      @current_order.user = current_user
+      @current_order.save
     end
     @current_order
   end

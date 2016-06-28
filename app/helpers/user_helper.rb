@@ -18,6 +18,6 @@ module UserHelper
 
   def find_errors_for(target, attr)
     return target.errors.full_messages if attr == 'all'
-    target.errors.full_messages.select {|msg| msg =~ /#{attr}/i }
+    target.errors.full_messages.select { |msg| msg =~ /#{attr}/i }
   end
 end
