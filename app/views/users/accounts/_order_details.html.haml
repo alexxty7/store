@@ -7,7 +7,7 @@
     %tbody
       - orders.each do |order|
         %tr
-          %td R#{order.id} 
-          %td= order.completed_date
-          %td= order.total
+          %td= order.number
+          %td= order.completed_at.to_date
+          %td= number_to_currency order.total
           %td= link_to 'view', order

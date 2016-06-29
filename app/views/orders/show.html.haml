@@ -1,3 +1,5 @@
-%h1 Order R#{@order.number}
+%h1 
+  Order
+  = @order.number
 
 = render('shared/order_details', order: @order)

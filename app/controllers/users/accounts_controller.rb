@@ -1,16 +1,16 @@
 class Users::AccountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user
 
   def show
     @history = OrderHistory.new(current_user)
   end
 
   def edit
+    @user = current_user
   end
 
   def update
-    if @user.update(user_account_params)
+    if current_user.update(user_account_params)
       flash[:notice] = 'Account was successfully updated.'
       redirect_to edit_account_path
     else
@@ -19,7 +19,7 @@ class Users::AccountsController < ApplicationController
   end
 
   def update_password
-    if @user.update_with_password(user_account_params)
+    if current_user.update_with_password(user_account_params)
       sign_in @user, bypass: true
       flash[:notice] = 'Password was successfully updated.'
       redirect_to edit_account_path
@@ -36,10 +36,6 @@ class Users::AccountsController < ApplicationController
       billing_address_attributes: address_attributes,
       shipping_address_attributes: address_attributes
     )
-  end
-
-  def set_user
-    @user = current_user
   end
 
   def address_attributes

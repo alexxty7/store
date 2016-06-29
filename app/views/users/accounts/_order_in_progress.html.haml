@@ -20,7 +20,7 @@
           %td
             = number_to_currency(order_item.subtotal)
 
-    %tfoot
+    %%tfoot
       %tr
         %td{colspan: "4", align: "right"}
           %b Order Total:
@@ -36,4 +36,6 @@
       %tr
         %td{colspan: "4", align: "right"}
           %b Shipping:
-        %td= number_to_currency(order.shipping_cost)
+        %td= number_to_currency(order.shipment_total)
+
+= link_to 'Go to cart', cart_path, class: 'btn btn-success'

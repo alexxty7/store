@@ -25,8 +25,9 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'figaro'
 gem 'rails-assets-bootstrap-star-rating', source: 'https://rails-assets.org'
 gem 'wicked'
-gem 'responders'
 gem 'ckeditor'
+gem 'activemodel-serializers-xml'
+gem 'draper'
 
 group :development, :test do
   gem 'byebug', platform: :mri

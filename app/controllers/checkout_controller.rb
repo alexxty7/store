@@ -8,6 +8,7 @@ class CheckoutController < ApplicationController
 
   def show
     @checkout_form = CheckoutForm.new(checkout_form_params)
+    @order = current_order.decorate
     render_wizard
   end
 

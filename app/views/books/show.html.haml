@@ -11,11 +11,4 @@
   .text-right
     = link_to('Leave a Review', new_book_review_path(@book), class: 'btn btn-success')
   %hr/
-  - @book.reviews.each do |review|
-    .row
-      .col-md-12
-        = render_star(review.rating)
-        %span.pull-right= time_tag(review.created_at.to_date)
-        %p by #{review.user.username}
-        %p= review.body
-    %hr/
+  = render @book.reviews

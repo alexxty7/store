@@ -1,22 +1,23 @@
 class OrdersController < ApplicationController
-  before_action :set_order, except: :show
+  before_action :authenticate_user!, only: [:show]
 
   def show
-    @order = Order.find(params[:id])
+    @order = current_user.orders.find(params[:id]).decorate
   end
 
   def edit
+    @order = current_order
   end
 
   def add_item
     book = Book.find(params[:book_id])
     quantity = params[:order][:quantity].to_i
-    @order.add(book, quantity)
+    current_order.add(book, quantity)
     redirect_to cart_path
   end
 
   def update
-    if @order.update(order_params)
+    if current_order.update(order_params)
       if params.key?(:checkout)
         redirect_to checkout_index_path
       else
@@ -28,7 +29,7 @@ class OrdersController < ApplicationController
   end
 
   def empty
-    @order.clear
+    current_order.clear
     redirect_to cart_path
   end
 
@@ -37,9 +38,5 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order)
           .permit(:coupon_code, order_items_attributes: [:id, :quantity])
-  end
-
-  def set_order
-    @order = current_order
   end
 end

@@ -1,5 +1,5 @@
-%h1 Order R#{@checkout_form.order.number}
+%h1= @order.number
 
-= render('shared/order_details', order: @checkout_form.order)
+= render('shared/order_details', order: @order)
 
 = link_to 'Go back to store', books_path, class: 'btn btn-success'

@@ -2,6 +2,6 @@
   .col-md-12.checkout-bar
     = checkout_progress
     
-= render('shared/order_details', order: @checkout_form.order)
+= render('shared/order_details', order: @order)
 
 = link_to 'Place Order', next_wizard_path, class: "btn btn-primary"
