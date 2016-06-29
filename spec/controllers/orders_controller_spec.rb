@@ -4,16 +4,17 @@ RSpec.describe OrdersController do
   let(:order) { build_stubbed(:order) }
 
   describe 'GET #show' do
+    let(:user) { create(:user) }
+
+    sign_in_user
+
     before do
-      allow(Order).to receive(:find).and_return(order)
+      allow(controller).to receive(:current_user) { user }
+      allow(user).to receive_message_chain(:orders, :find).and_return(order)
       get :show, params: { id: order.id }
     end
  
-    it "receives find and return post" do
-      expect(Order).to have_received(:find).with(order.id.to_s)
-    end
- 
-    it "assigns @post" do
+    it "assigns @order" do
       expect(assigns(:order)).not_to be_nil
     end
  

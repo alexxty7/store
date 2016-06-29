@@ -21,14 +21,14 @@ RSpec.describe Order do
     it { is_expected.to have_many(:order_items) }
   end
 
-  describe '#set_completed_time' do
+  describe '#set_completed_time_and_number' do
     it 'updates completed_at time' do
-      order.set_completed_time
+      order.set_completed_time_and_number
       expect(order.completed_at).not_to be_nil
     end
 
     it 'calls after change order state to in_queue' do
-      expect(order).to receive(:set_completed_time)
+      expect(order).to receive(:set_completed_time_and_number)
       order.place_order
     end
   end
@@ -108,13 +108,6 @@ RSpec.describe Order do
       order = create(:order, shipment: shipment)
       order.update_totals
       expect(order.shipment_total).to eq(5)
-    end
-  end
-
-  describe '#set_number' do
-    it 'sets order number' do
-      order = create(:order)
-      expect(order.number).not_to be_nil
     end
   end
 end

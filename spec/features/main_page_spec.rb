@@ -1,8 +1,8 @@
 require_relative 'features_helper'
 
 feature 'Main page', js: true do
-  given!(:book) { create(:book_with_order, quantity: 2) }
-  given!(:book2) { create(:book_with_order, title: 'Some book') }
+  given!(:book) { create(:book_with_order, quantity: 2).decorate }
+  given!(:book2) { create(:book_with_order, title: 'Some book').decorate }
 
   scenario 'user can see best sellers' do
     visit(root_path)

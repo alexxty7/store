@@ -1,12 +1,12 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:show]
+  before_action :set_order, only: [:edit, :update]
 
   def show
     @order = current_user.orders.find(params[:id]).decorate
   end
 
   def edit
-    @order = current_order
   end
 
   def add_item
@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
   end
 
   def update
-    if current_order.update(order_params)
+    if @order.update(order_params)
       if params.key?(:checkout)
         redirect_to checkout_index_path
       else
@@ -34,6 +34,10 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def set_order
+    @order = current_order
+  end
 
   def order_params
     params.require(:order)
