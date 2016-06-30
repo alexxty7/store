@@ -1,4 +1,4 @@
-class AddressDecorator < Draper::Decorator
+class AddressDecorator < Drape::Decorator
   delegate_all
   delegate :address
 

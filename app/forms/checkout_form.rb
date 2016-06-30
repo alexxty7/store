@@ -72,14 +72,15 @@ class CheckoutForm
   def validate_children
     case step
     when :address
-      promote_errors(billing_address.errors) if billing_address.invalid?
-      promote_errors(shipping_address.errors) if shipping_address.invalid?
+      promote_errors(billing_address.errors)
+      promote_errors(shipping_address.errors)
     when :payment
-      promote_errors(credit_card.errors) if credit_card.invalid?
+      promote_errors(credit_card.errors)
     end
   end
 
   def promote_errors(child_errors)
+    return unless child_errors.any?
     child_errors.each do |attribute, message|
       errors.add(attribute, message)
     end

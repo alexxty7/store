@@ -1,4 +1,4 @@
-class CreditCardDecorator < Draper::Decorator
+class CreditCardDecorator < Drape::Decorator
   delegate_all
 
   def last_numbers

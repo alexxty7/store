@@ -1,4 +1,4 @@
-class OrderDecorator < Draper::Decorator
+class OrderDecorator < Drape::Decorator
   delegate_all
   decorates_association :credit_card
   decorates_association :shipping_address

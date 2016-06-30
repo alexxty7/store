@@ -1,4 +1,4 @@
-class AuthorDecorator < Draper::Decorator
+class AuthorDecorator < Drape::Decorator
   delegate_all
 
   def full_name

@@ -26,8 +26,7 @@ gem 'figaro'
 gem 'rails-assets-bootstrap-star-rating', source: 'https://rails-assets.org'
 gem 'wicked'
 gem 'ckeditor'
-gem 'activemodel-serializers-xml'
-gem 'draper'
+gem 'drape', '~> 1.0.0.beta1'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -53,5 +52,5 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
   gem 'rails-controller-testing'
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
 end

@@ -193,10 +193,11 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    draper (2.1.0)
-      actionpack (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
+    drape (1.0.0.beta1)
+      actionpack (>= 5.0.0.beta1)
+      activemodel (>= 5.0.0.beta1)
+      activemodel-serializers-xml (>= 1.0)
+      activesupport (>= 5.0.0.beta1)
       request_store (~> 1.0)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -399,7 +400,6 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  activemodel-serializers-xml
   better_errors
   bootstrap-sass (~> 3.3.6)
   byebug
@@ -410,7 +410,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
-  draper
+  drape (~> 1.0.0.beta1)
   factory_girl_rails
   ffaker
   figaro
