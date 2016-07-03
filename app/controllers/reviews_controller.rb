@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
   def create
     @review = @book.reviews.new(review_params.merge(user: current_user))
     if @review.save
-      redirect_to @book, notice: 'Review was successfully created.'
+      redirect_to @book, notice: t('review.flashes.created')
     else
       render :new
     end

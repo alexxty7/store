@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:edit, :update]
 
   def show
-    @order = current_user.orders.find(params[:id]).decorate
+    @order = completed_orders.find(params[:id]).decorate
   end
 
   def edit
@@ -36,7 +36,11 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    @order = current_order
+    @order = current_order.decorate
+  end
+
+  def completed_orders
+    current_user.orders.completed
   end
 
   def order_params

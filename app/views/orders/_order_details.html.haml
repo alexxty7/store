@@ -1,0 +1,13 @@
+.table-responsive
+  %table.table.cart
+    %thead
+      %th= t('order.number')
+      %th= t('order.completed_at')
+      %th= t('order.total')
+    %tbody
+      - orders.each do |order|
+        %tr
+          %td= order.number
+          %td= order.completed_at
+          %td= number_to_currency(order.total)
+          %td= link_to(t('order.view'), order)

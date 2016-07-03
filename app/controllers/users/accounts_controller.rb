@@ -12,7 +12,7 @@ module Users
 
     def update
       if @user.update(user_account_params)
-        flash[:notice] = 'Account was successfully updated.'
+        flash[:notice] = t('account.flashes.account_updated')
         redirect_to edit_account_path
       else
         render :edit
@@ -22,7 +22,7 @@ module Users
     def update_password
       if @user.update_with_password(user_account_params)
         sign_in @user, bypass: true
-        flash[:notice] = 'Password was successfully updated.'
+        flash[:notice] = t('account.flashes.password_updated')
         redirect_to edit_account_path
       else
         render :edit

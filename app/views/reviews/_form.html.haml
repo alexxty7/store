@@ -10,6 +10,6 @@
     = f.label :body, 'Text review'
     = f.text_area :body, rows: 10, class: 'form-control'
 
-  = f.submit 'Add', class: 'btn btn-primary'
+  = f.submit(t('review.add'), class: 'btn btn-primary')
   or
-  = link_to('Cancel', @book)
+  = link_to(t('review.cancel'), @book)

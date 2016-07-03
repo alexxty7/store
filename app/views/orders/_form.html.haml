@@ -20,7 +20,7 @@
           %tr
             %td{colspan: "4", align: "right"}
               %b Discount:
-            %td= number_to_currency(@order.coupon.discount)
+            %td= number_to_currency(@order.coupon_discount)
   .box-footer
     .pull-left
       = link_to 'Empty cart', empty_cart_path, method: :patch, class: "btn btn-default"

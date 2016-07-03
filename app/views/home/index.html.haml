@@ -7,10 +7,10 @@
             = image_tag(book.cover, class: 'image-responsive')
             %h1
               = book.title
-              by #{book.author.full_name}
+              by #{book.author_full_name}
             %p= book.description
             %p
-              %span.price Price:
+              %span.price= t('books.price')
               = number_to_currency(book.price)
             = render('books/cart_form', book: book)
       %a.left.carousel-control{"data-slide" => "prev", :href => "#carousel-example-generic"}

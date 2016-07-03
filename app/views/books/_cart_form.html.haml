@@ -1,6 +1,6 @@
 = form_for :order, url: add_item_orders_path, html: { class: 'form-inline cart_item_form' } do |f|
   .form-group
     = hidden_field_tag :book_id, book.id
-    = f.label :quantity
+    = f.label :quantity, t('cart.quantity')
     = f.number_field :quantity, value: 1, min: 1, class: 'form-control'
-  = f.submit "Add to cart", class:"btn btn-primary"
+  = f.submit(t('cart.add_to_cart'), class:"btn btn-primary")

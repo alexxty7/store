@@ -1,32 +1,36 @@
 .row
   .col-md-6
     = form_for(@user, url: { action: :update }) do |f|
-      %h3.page-header Billing address
+      %h3.page-header= t('account.settings.billing_address')
+
       = error_messages_for(@user.billing_address)
       = f.fields_for :billing_address do |bill_form|
         = render('address/form', f: bill_form)
-      = f.submit 'Save', class: "btn btn-primary"
+      = f.submit t('account.settings.save'), class: "btn btn-primary"
 
   .col-md-6
     = form_for(@user, url: { action: :update }) do |f|
-      %h3.page-header Shipping address
+      %h3.page-header= t('account.settings.shipping_address')
+
       = error_messages_for(@user.shipping_address)
       = f.fields_for :shipping_address do |bill_form|
         = render('address/form', f: bill_form)
-      = f.submit 'Save', class: "btn btn-primary"
+      = f.submit t('account.settings.save'), class: "btn btn-primary"
 .row
   .col-md-6
     = form_for(@user, url: { action: :update }) do |f|
-      %h3.page-header Email
+      %h3.page-header= t('account.settings.email')
+
       = error_messages_for(@user, 'email')
       .form-group
         = f.label :email
         = f.email_field :email, class: 'form-control'
-      = f.submit 'Save', class: "btn btn-primary"
+      = f.submit t('account.settings.save'), class: "btn btn-primary"
 
   .col-md-6
     = form_for(@user, url: { action: :update_password }) do |f|
-      %h3.page-header Password
+      %h3.page-header= t('account.settings.password')
+
       = error_messages_for(@user, 'password')
       .form-group
         = f.label :password
@@ -38,9 +42,9 @@
         .form-group
           = f.label :current_password
           = f.password_field :current_password, class: 'form-control'
-      = f.submit 'Save', class: "btn btn-primary"
+      = f.submit t('account.settings.save'), class: "btn btn-primary"
 .row
   .col-md-6
-    %h3.page-header Remove account
-    = button_to("Cancel my account", registration_path(@user), 
+    %h3.page-header= t('account.settings.remove_account') 
+    = button_to(t('account.settings.cancel_account'), registration_path(@user), 
               class: 'btn btn-danger', data: { confirm: "Are you sure?" }, method: :delete)

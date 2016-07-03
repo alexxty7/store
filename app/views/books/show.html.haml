@@ -4,7 +4,7 @@
     %h1= @book.title
     %p= @book.description
     %p
-      %span.price Price:
+      %span.price= t('books.price')
       = number_to_currency(@book.price)
     = render('cart_form', book: @book)
 .well

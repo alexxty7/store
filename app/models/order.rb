@@ -17,6 +17,8 @@ class Order < ApplicationRecord
   after_update :update_totals
 
   delegate :clear, :empty?, to: :order_items
+  delegate :discount, to: :coupon, prefix: true, allow_nil: true
+  delegate :name, to: :shipment, prefix: true, allow_nil: true
 
   attr_accessor :coupon_code
 
@@ -46,6 +48,10 @@ class Order < ApplicationRecord
 
   def self.in_progress
     find_by(state: 'in_progress')
+  end
+
+  def self.completed
+    where.not(state: 'in_progress')
   end
 
   def add(item, quantity = 1)

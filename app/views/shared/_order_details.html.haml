@@ -1,63 +1,19 @@
 .row
   .col-md-3
-    %h3 Shipping Address
+    %h3= t('checkout.shipping_address')
     = render('shared/address', address: order.shipping_address)
 
   .col-md-3
-    %h3 Billing Address
+    %h3= t('checkout.billing_address')
     = render('shared/address', address: order.billing_address)
 
   .col-md-3
-    %h3 Shipments
-    %p= order.shipment.name
+    %h3= t('checkout.shipments')
+    %p= order.shipment_name
 
   .col-md-3
-    %h3 Payment Information
-    %p= order.credit_card.last_numbers
-    %p= order.credit_card.expiration_date
+    %h3= t('checkout.payment_info')
+    %p= order.credit_card_last_numbers
+    %p= order.credit_card_expiration_date
 .row
-  .table-responsive
-    %table.table.cart
-      %thead
-        %tr
-          %th.text-center{:colspan => "2"} Book
-          %th Price
-          %th qty
-          %th total
-      %tbody
-        - order.order_items.each do |order_item|
-          %tr
-            %td
-              = image_tag(order_item.book.cover.thumb, class:"img-responsive")
-            %td
-              = link_to(order_item.book.title, book_path(order_item.book))
-            %td
-              = number_to_currency(order_item.price)
-            %td
-              = order_item.quantity
-            %td
-              = number_to_currency(order_item.subtotal)
-
-      %tfoot
-        %tr
-          %td{colspan: "4", align: "right"}
-            %b Order Total:
-          %td= number_to_currency(order.total)
-
-      %tfoot
-        %tr
-          %td{colspan: "4", align: "right"}
-            %b Subtotal:
-          %td= number_to_currency(order.subtotal)
-      - if order.coupon
-        %tfoot
-          %tr
-            %td{colspan: "4", align: "right"}
-              %b Discount:
-            %td= number_to_currency(order.coupon.discount)
-
-      %tfoot
-        %tr
-          %td{colspan: "4", align: "right"}
-            %b Shipping:
-          %td= number_to_currency(order.shipment_total)
+  = render('orders/order_in_progress', order: order)

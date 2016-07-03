@@ -3,8 +3,13 @@ module ReviewHelper
     return '' unless (1..5).cover?(value)
 
     html = ''
-    value.times { html << "<span class='glyphicon glyphicon-star'></span>\n" }
-    (5 - value).times { html << "<span class='glyphicon glyphicon-star-empty'></span>\n" }
+    value.times do
+      html << "<span class='glyphicon glyphicon-star'></span>\n"
+    end
+
+    (5 - value).times do
+      html << "<span class='glyphicon glyphicon-star-empty'></span>\n"
+    end
 
     html.html_safe
   end
