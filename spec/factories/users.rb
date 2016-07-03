@@ -1,0 +1,22 @@
+FactoryGirl.define do
+  factory :user do
+    sequence(:email) { |n| "example#{n}@test.com" }
+    password '12345678'
+    password_confirmation '12345678'
+    provider nil
+    uid nil
+    username 'user111'
+    billing_address nil
+    shipping_address nil
+
+    trait :admin do
+      admin true
+    end
+  end
+
+  factory :user_account, class: User do
+    sequence(:email) { |n| "example#{n}@test.com" }
+    password '12345678'
+    password_confirmation '12345678'      
+  end
+end

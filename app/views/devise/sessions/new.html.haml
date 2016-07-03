@@ -1,0 +1,17 @@
+.authform
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    %h2.page-header= t('devise.log_in')
+    .form-group
+      = f.label :email
+      = f.email_field :email, autofocus: true, class: 'form-control'
+    .form-group
+      = f.label :password
+      = f.password_field :password, autocomplete: "off", class: 'form-control'
+    - if devise_mapping.rememberable?
+      .checkbox
+        = f.label :remember_me do
+          = f.check_box :remember_me
+          = t('devise.remember_me')
+    .actions
+      = f.submit t('devise.log_in'), class: 'btn btn-success btn-block'
+  = render "devise/shared/links"

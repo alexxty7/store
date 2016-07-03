@@ -1,0 +1,14 @@
+= f.fields_for(:order_items, order_item) do |item_form|
+  %tr
+    %td
+      = order_item.book_cover
+    %td
+      = link_to(order_item.book_title, book_path(order_item.book))
+    %td
+      = number_to_currency(order_item.price)
+    %td
+      = item_form.number_field :quantity, min: 1, class: 'form-control'
+    %td
+      = number_to_currency(order_item.subtotal)
+      = link_to order_item_path(order_item), method: :delete, class: 'delete' do
+        %span.glyphicon.glyphicon-trash

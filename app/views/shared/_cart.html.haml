@@ -1,0 +1,9 @@
+= link_to(cart_path, class: "pull-right") do
+  %span.glyphicon.glyphicon-shopping-cart
+  %span
+    #{t('cart.cart')}:
+  - if current_order && !current_order.empty?
+    (#{current_order.order_items.count})
+    = number_to_currency(current_order.total)
+  -else
+    (#{t('cart.empty')})

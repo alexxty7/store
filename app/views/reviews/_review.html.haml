@@ -1,0 +1,7 @@
+.row
+  .col-md-12
+    = render_star(review.rating)
+    %span.pull-right= review.created_at
+    %p by #{review.author}
+    %p= review.body
+%hr/

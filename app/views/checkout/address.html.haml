@@ -1,0 +1,29 @@
+.row
+  .col-md-12.checkout-bar
+    = checkout_progress 
+.row
+  .col-md-9
+    = form_for(@checkout_form, url: wizard_path, method: :put) do |f|
+      .col-md-6
+        = f.fields_for :billing_address do |bill_form|
+          %h3.page-header= t('checkout.billing_address')
+
+          = error_messages_for(@checkout_form.billing_address)
+          = render('address/form', f: bill_form)
+
+      .col-md-6
+        = f.fields_for :shipping_address do |ship_form|
+          %h3.page-header= t('checkout.shipping_address')
+
+          = error_messages_for(@checkout_form.shipping_address)
+          = label_tag :checkout_form_use_billing, id: 'use_billing'  do
+            = check_box_tag 'checkout_form[use_billing]', '1', true
+            = t('checkout.use_billing')
+          #shipping
+            = render('address/form', f: ship_form)
+
+      .col-md-12
+        = f.submit t('checkout.next_step'), class: "btn btn-primary"
+
+  .col-md-3
+    = render('summary')

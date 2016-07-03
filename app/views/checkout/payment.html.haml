@@ -1,0 +1,30 @@
+.row
+  .col-md-12.checkout-bar
+    = checkout_progress
+.row
+  .col-md-9
+    .col-md-6
+      = form_for(@checkout_form, url: wizard_path, method: :put) do |f|
+        = error_messages_for(@checkout_form.credit_card)
+        = f.fields_for :credit_card do |pay_form|
+          %h3.page-header= t('checkout.credit_cart')
+
+          .form-group
+            = pay_form.label :number
+            = pay_form.text_field :number, class: 'form-control'
+
+          .form-group
+            = label_tag t('credit_card.expiration_date')
+            .form-inline
+              = pay_form.select :month, (1..12), {include_blank: t('credit_card.month')},
+                  { class: 'form-control' }
+              = pay_form.select :year, (2016..2026), {include_blank: t('credit_card.year')},
+                  class: 'form-control', placeholder: 'Year'
+
+          .form-group
+            = pay_form.label :cvv
+            = pay_form.text_field :cvv, class: 'form-control'
+
+        = f.submit t('checkout.next_step'), class: "btn btn-primary"
+  .col-md-3
+    = render('summary')

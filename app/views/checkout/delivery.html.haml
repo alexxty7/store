@@ -1,0 +1,20 @@
+.row
+  .col-md-12.checkout-bar
+    = checkout_progress
+.row
+  .col-md-9
+    .col-md-6
+      %h3.page-header= t('checkout.ship_methods')
+      = form_for(@checkout_form, url: wizard_path, method: :put) do |f|
+        %ul.list-group
+          - Shipment.all.each_with_index do |method, index|
+            %li.list-group-item
+              %label
+                = f.radio_button :shipment_id, method.id, checked: (index == 0)
+                %span= method.name
+                %span +
+                = number_to_currency(method.price)
+
+        = f.submit t('checkout.next_step'), class: "btn btn-primary"
+  .col-md-3
+    = render('summary')

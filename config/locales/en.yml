@@ -1,23 +1,123 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      address:
+        address: Address
+        city: City
+        country: Country
+        firstname: First Name
+        lastname: Last Name
+        phone: Phone
+        zipcode: Zip Code
+      credit_card:
+        number: Card number
+        cvv: Card code
+        month: Month
+        year: Year
+      user:
+        username: Username
+        email: Email
+        password: Password
+        password_confirmation: Password confirmation
+        current_password: Current password
+  title: BookStore
+  home: Home
+  shop: Shop
+  settings: Settings
+  orders: Orders
+  sign_out: Sign out
+  sign_in: Sign in
+  sign_up: Sign up
+  menu_title: Shop by category
+  account:
+    orders:
+      in_progress: In progress
+      in_queue: Waiting for processing
+      in_delivery: In Delivery
+      delivered: Delivered
+      orders: Orders
+      go_to_cart: GO TO CART
+      empty_in_progress: There are not orders in progress.
+      empty_completed: There are not orders for processing.
+    settings:
+      settings: Settings
+      billing_address: Billing address
+      shipping_address: Shipping address
+      email: Email
+      password: Password
+      remove_account: Remove account
+      cancel_account: Cancel my account
+      save: Save
+    flashes:
+      account_updated: 'Account was successfully updated.'
+      password_updated: 'Password was successfully updated.'
+  devise:
+    log_in: Log in
+    remember_me: Remember me
+    sign_up: Sign up
+    fogot_password: Forgot your password?
+  order:
+    price: Price
+    quantity: qty
+    total: total
+    order_total: 'Order Total:'
+    subtotal: 'Subtotal:'
+    discount: 'Discount:'
+    shipping: 'Shipping:'
+    view: view
+    number: Number
+    completed_at: Completed at
+  books:
+    price: Price
+  cart:
+    add_to_cart: ADD TO CART
+    quantity: Quantity
+    cart: CART
+    empty: EMPTY
+  credit_card:
+    expiration_date: Expiration date
+    month: Month
+    year: Year
+  checkout:
+    billing_address: Billing address
+    shipping_address: Shipping address
+    use_billing: Use Billing Address
+    next_step: Save and continue
+    order_summury: Order summary
+    item_total: 'Item total:'
+    ship_price: 'Shipping:'
+    order_discount: 'Discount:'
+    order_total: 'Order total:'
+    ship_methods: Shipping methods
+    credit_card: Credit Card
+    place_order: Place Order
+    shipments: Shipments 
+    payment_info: Payment Information
+    phone: Phone
+    back_to_store: Go back to store
+  review:
+    add: Add
+    cancel: Cancel
+    review_for: New review for
+    flashes:
+      created: 'Review was successfully created.'
+  wicked:
+    address: Address
+    delivery: Delivery
+    payment: Payment
+    confirm: Confirm
+    complete: Complete
+  date:
+    formats:
+      default:
+        "%m/%d/%Y"
+      with_weekday:
+        "%a %m/%d/%y"
+  time:
+    formats:
+      default:
+        "%a, %b %-d, %Y at %r"
+      date:
+        "%b %-d, %Y"
+      short:
+        "%B %d"

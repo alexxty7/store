@@ -1,0 +1,19 @@
+.row
+  .col-md-3
+    %h3= t('checkout.shipping_address')
+    = render('shared/address', address: order.shipping_address)
+
+  .col-md-3
+    %h3= t('checkout.billing_address')
+    = render('shared/address', address: order.billing_address)
+
+  .col-md-3
+    %h3= t('checkout.shipments')
+    %p= order.shipment_name
+
+  .col-md-3
+    %h3= t('checkout.payment_info')
+    %p= order.credit_card_last_numbers
+    %p= order.credit_card_expiration_date
+.row
+  = render('orders/order_in_progress', order: order)

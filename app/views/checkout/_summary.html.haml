@@ -1,0 +1,17 @@
+%h3.page-header= t('checkout.order_summury')
+%table.table
+  %tbody
+    %tr
+      %td= t('checkout.item_total')
+      %td= number_to_currency(current_order.subtotal)
+    - if current_order.shipment
+      %tr
+        %td= t('checkout.ship_price')
+        %td= number_to_currency(current_order.shipment_total)
+    - if current_order.coupon
+      %tr
+        %td= t('checkout.order_discount')
+        %td= number_to_currency(current_order.coupon_discount)
+    %tr
+      %td= t('checkout.order_total')
+      %td= number_to_currency(current_order.total)

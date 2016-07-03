@@ -1,0 +1,15 @@
+= form_for([@book, @review]) do |f|
+  = error_messages_for(@review)
+
+  .form-group
+    = f.label :rating
+    = f.text_field :rating, class: 'rating rating-loading', 
+                    data: {min: '0', max: '5', step: '1', size: 'xs', 'show-caption': 'false'}
+
+  .form-group
+    = f.label :body, 'Text review'
+    = f.text_area :body, rows: 10, class: 'form-control'
+
+  = f.submit(t('review.add'), class: 'btn btn-primary')
+  or
+  = link_to(t('review.cancel'), @book)

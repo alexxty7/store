@@ -1,0 +1,46 @@
+.table-responsive
+  %table.table.cart
+    %thead
+      %tr
+        %th.text-center{:colspan => "2"} Book
+        %th= t('order.price')
+        %th= t('order.quantity')
+        %th= t('order.total')
+    %tbody
+      - order.order_items.each do |order_item|
+        %tr
+          %td
+            = order_item.book_cover
+          %td
+            = link_to(order_item.book_title, book_path(order_item.book))
+          %td
+            = number_to_currency(order_item.price)
+          %td
+            = order_item.quantity
+          %td
+            = number_to_currency(order_item.subtotal)
+
+    %tfoot
+      %tr
+        %td{colspan: "4", align: "right"}
+          %b= t('order.order_total')
+        %td= number_to_currency(order.total)
+
+    %tfoot
+      %tr
+        %td{colspan: "4", align: "right"}
+          %b= t('order.subtotal')
+        %td= number_to_currency(order.subtotal)
+    - if order.coupon
+      %tfoot
+        %tr
+          %td{colspan: "4", align: "right"}
+            %b= t('order.discount')
+          %td= number_to_currency(order.coupon_discount)
+
+    %tfoot
+      %tr
+        %td{colspan: "4", align: "right"}
+          %b= t('order.shipping')
+        %td= number_to_currency(order.shipment_total)
+

@@ -1,0 +1,5 @@
+%h1= @order.number
+
+= render('shared/order_details', order: @order)
+
+= link_to(t('checkout.back_to_store'), books_path, class: 'btn btn-success')

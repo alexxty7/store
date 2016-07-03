@@ -1,0 +1,14 @@
+.thumbnail.clearfix
+  = image_tag(@book.cover, class: 'img-responsive preview')
+  .caption-full
+    %h1= @book.title
+    %p= @book.description
+    %p
+      %span.price= t('books.price')
+      = number_to_currency(@book.price)
+    = render('cart_form', book: @book)
+.well
+  .text-right
+    = link_to('Leave a Review', new_book_review_path(@book), class: 'btn btn-success')
+  %hr/
+  = render @book.reviews
